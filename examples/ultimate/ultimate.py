@@ -8,15 +8,25 @@
         * like_users.txt
     and do the job. This bot can be run 24/7.
 """
-
+import argparse
 import os
 import sys
 
 sys.path.append(os.path.join(sys.path[0], '../../'))
 from instabot import Bot
 
+
+parser = argparse.ArgumentParser(add_help=True)
+parser.add_argument('-u', type=str, help="username")
+parser.add_argument('-p', type=str, help="password")
+parser.add_argument('-proxy', type=str, help="proxy")
+args = parser.parse_args()
+
 bot = Bot()
-bot.login()
+bot.login(username=args.u, password=args.p,
+          proxy=args.proxy)
+
+
 
 print("Current script's schedule:")
 follow_followers_list = bot.read_list_from_file("follow_followers.txt")
